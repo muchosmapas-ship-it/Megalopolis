@@ -1139,23 +1139,16 @@ const ovPanel = document.getElementById('overlay-panel');
     });
 
     // Encuentra el feature del click en la lista filtrada del bottom panel,
-    // lo selecciona (fila amarilla) y hace highlight en el mapa.
-    // Si el panel esta cerrado, lo abre automaticamente.
-    // Si el feature esta en otra pagina, navega a esa pagina.
+    // lo selecciona (fila amarilla) y hace highlight en el mapa ÚNICAMENTE si la tabla ya está abierta.
+    // No abre la tabla automáticamente al hacer clic en el mapa.
     function syncSelectionWithPanel(hits) {
         if (!hits || hits.length === 0) return;
+        // Si el panel de atributos está cerrado, no hacer nada (no abrirlo automáticamente)
+        if (!bottomPanelState.open) return;
+
         for (const h of hits) {
             const layerName = h.source || 'zonas_prioritarias';
-            if (!layerName) continue;
-
-            // Si el panel esta cerrado o es de otra capa, abrirlo/cambiarlo
-            if (!bottomPanelState.open || bottomPanelState.layerName !== layerName) {
-                if (CFG.OVERLAY_LAYERS[layerName] || overlays[layerName]) {
-                    openBottomPanel(layerName);
-                } else {
-                    continue;
-                }
-            }
+            if (!layerName || bottomPanelState.layerName !== layerName) continue;
 
             const f = h.feature;
             if (!f) continue;

@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Geoportal de Prioridades de Reforestación - Megalópolis</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v4.6.5/css/ol.css">
+    <link rel="stylesheet" href="bower_components/ol.css">
+    <link rel="stylesheet" href="css/style.css?v=160">
+    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <!-- Chart.js para Dashboard dinámico -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-dark visor-nav" style="background: linear-gradient(135deg, #133c2e 0%, #1b4d3e 100%); border-bottom: 2px solid #52b788; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <span style="font-size: 1.5rem;">🌲</span>
+            <div>
+                <span class="navbar-brand fw-bold mb-0">Geoportal de Prioridades de Reforestación - Megalópolis</span>
+                <span class="text-light small d-none d-md-inline ms-2">| Sistema Territorial 2026</span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <!-- Botón Toggle Dashboard Lateral -->
+            <button id="btn-toggle-dash" class="btn btn-sm btn-success fw-bold shadow-sm d-flex align-items-center gap-1" title="Mostrar / Ocultar Dashboard Lateral">
+                <span>📊</span> <span>Dashboard Lateral</span>
+            </button>
+            <!-- Enlace a Dashboard Pantalla Completa -->
+            <a href="dashboard.html" target="_blank" class="btn btn-sm btn-outline-light py-1 px-2 fw-semibold" title="Abrir Dashboard analítico en pestaña completa" style="font-size:0.78rem; background:rgba(255,255,255,0.1);">
+                ⛶ Pantalla Completa
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="visor-container">
+    <!-- Panel Izquierdo: Herramientas, Capas, Leyenda -->
+    <aside class="visor-sidebar">
+        <section class="card visor-card mb-2" style="position: relative; overflow: visible;">
+            <div class="card-header text-white d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #133c2e 0%, #1b4d3e 100%);">
+                <span>🔍 Búsqueda Rápida</span>
+            </div>
+            <div class="card-body p-2" style="position: relative;">
+                <input id="search-input" type="text" class="form-control form-control-sm"
+                       placeholder="Buscar por especie, acción o prioridad..."
+                       autocomplete="off">
+                <div id="autocomplete" class="autocomplete-list"></div>
+                <div id="select-status" style="font-size:10px;color:#666;margin-top:4px;"></div>
+            </div>
+        </section>
+
+        <section class="card visor-card mb-2">
+            <div class="card-header text-white" style="background: linear-gradient(135deg, #1b4d3e 0%, #2d6a4f 100%); font-weight: 600;">Capas Temáticas</div>
+            <div class="card-body p-2" id="overlay-panel">Cargando...</div>
+        </section>
+
+        <section class="card visor-card mb-2">
+            <div class="card-header text-white d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%); font-weight: 600;">
+                <span>Mapas Base</span>
+                <button class="btn btn-sm btn-outline-light py-0 px-2 shadow-sm" id="btn-center-ortho" title="Centrar toda la región de la Megalópolis" style="font-size:0.75rem; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.15);">🎯 Centrar Todo</button>
+            </div>
+            <div class="card-body p-2" id="base-panel">Cargando...</div>
+        </section>
+
+        <section class="card visor-card mb-2">
+            <div class="card-header text-white py-1 px-2 d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #1b4d3e 0%, #2d6a4f 100%); font-weight: 600; font-size: 0.85rem;">
+                <span>🛠️ Herramientas GIS</span>
+            </div>
+            <div class="card-body p-2" id="gis-tools-panel">
+                <div class="d-flex gap-1 mb-1">
+                    <button class="btn btn-sm btn-outline-success w-50 py-1 px-1 fw-semibold text-truncate" id="btn-upload-file" title="Subir KML, Shapefile (.zip) o GeoJSON" style="font-size:0.76rem;">
+                        📁 Subir KML/SHP
+                    </button>
+                    <button class="btn btn-sm btn-outline-success w-50 py-1 px-1 fw-semibold text-truncate" id="btn-gps-panel" title="Activar mi ubicación GPS en tiempo real" style="font-size:0.76rem;">
+                        🎯 Mi GPS
+                    </button>
+                    <input type="file" id="gis-file-input" accept=".kml,.geojson,.json,.zip" style="display:none">
+                </div>
+                <div class="btn-group btn-group-sm w-100 mb-1" role="group">
+                    <button type="button" class="btn btn-outline-success btn-draw py-0 px-1" data-type="Point" title="Dibujar Punto" style="font-size:0.75rem;">📍 Punto</button>
+                    <button type="button" class="btn btn-outline-success btn-draw py-0 px-1" data-type="LineString" title="Dibujar Línea" style="font-size:0.75rem;">📏 Línea</button>
+                    <button type="button" class="btn btn-outline-success btn-draw py-0 px-1" data-type="Polygon" title="Dibujar Polígono" style="font-size:0.75rem;">🛑 Polígono</button>
+                </div>
+                <div class="d-flex gap-1 mb-1">
+                    <button class="btn btn-sm btn-outline-danger w-50 py-0 px-1 fw-semibold" id="btn-clear-draw" title="Limpiar todos los dibujos" style="font-size:0.75rem;">🧹 Limpiar</button>
+                    <button class="btn btn-sm btn-outline-primary w-50 py-0 px-1 fw-semibold" id="btn-export-draw" title="Exportar capas a GeoJSON" style="font-size:0.75rem;">💾 Exportar</button>
+                </div>
+                <div id="upload-status" class="text-truncate text-muted" style="font-size:0.70rem; line-height:1.1;"></div>
+            </div>
+        </section>
+
+        <section class="card visor-card mb-2">
+            <div class="card-header text-white" style="background: linear-gradient(135deg, #133c2e 0%, #2d6a4f 100%); font-weight: 600;">Leyenda de Prioridades</div>
+            <div class="card-body small p-2" id="leyenda-panel">
+                <div class="d-flex align-items-center mb-1">
+                    <span style="display:inline-block;width:14px;height:14px;background:#d90429;border:1px solid #700;margin-right:6px;border-radius:2px;"></span>
+                    <span><strong>Nivel 1:</strong> Crítica (Bioingeniería)</span>
+                </div>
+                <div class="d-flex align-items-center mb-1">
+                    <span style="display:inline-block;width:14px;height:14px;background:#f77f00;border:1px solid #b35900;margin-right:6px;border-radius:2px;"></span>
+                    <span><strong>Nivel 2:</strong> Urgente (Reforestación Activa)</span>
+                </div>
+                <div class="d-flex align-items-center mb-1">
+                    <span style="display:inline-block;width:14px;height:14px;background:#fcbf49;border:1px solid #cca020;margin-right:6px;border-radius:2px;"></span>
+                    <span><strong>Nivel 3:</strong> Agroforestería / Terrazas</span>
+                </div>
+                <div class="d-flex align-items-center mb-1">
+                    <span style="display:inline-block;width:14px;height:14px;background:#2a9d8f;border:1px solid #1c6d63;margin-right:6px;border-radius:2px;"></span>
+                    <span><strong>Nivel 4:</strong> Preventiva / Enriquecimiento</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card visor-card mb-2">
+            <div class="card-header text-white" style="background: linear-gradient(135deg, #133c2e 0%, #2d6a4f 100%); font-weight: 600;">Acerca del Proyecto</div>
+            <div class="card-body small p-2" id="acerca-de" style="font-size: 0.78rem; line-height: 1.3;">
+                <p class="mb-1 fw-bold text-success" style="font-size:0.82rem;">🌲 Megalópolis (20,691 Polígonos)</p>
+                <div class="p-2 rounded" style="background: rgba(45, 106, 79, 0.08); border-left: 3px solid #2d6a4f;">
+                    <div class="fw-bold mb-1" style="color:#1b4d3e; font-size:0.78rem;">📐 Modelo Multicriterio Espacial:</div>
+                    <ul class="ps-3 mb-0" style="font-size:0.73rem; color:#333;">
+                        <li class="mb-1"><strong>Suelo y Vegetación:</strong> Erosión severa (INEGI) cruzada con pastizales y matorral degradado (INEGI USV7).</li>
+                        <li class="mb-1"><strong>Topografía y Clima:</strong> Pendientes MDE para obras mecánicas e isoyetas/isotermas para nicho de especies nativas.</li>
+                        <li><strong>4 Niveles:</strong> N1 Crítica, N2 Urgente, N3 Agroforestería y N4 Preventiva.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </aside>
+
+    <!-- Mapa Central -->
+    <main id="map" class="visor-map"></main>
+
+    <!-- Panel Lateral Derecho: Dashboard Ejecutivo y Ficha Técnica -->
+    <aside id="dashboard-sidebar" class="visor-dash-sidebar">
+        <!-- Header del Dashboard Lateral -->
+        <div class="dash-side-header">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-bold d-flex align-items-center gap-1 text-white" style="font-size:0.92rem;">
+                    <span>📊</span> <span>Dashboard por Estado</span>
+                </span>
+                <button id="btn-close-dash" class="btn btn-sm btn-outline-light py-0 px-2 fw-bold" title="Cerrar panel lateral" style="font-size:0.75rem;">✕</button>
+            </div>
+            <!-- Selector de Estado Interactivo -->
+            <div>
+                <select id="dashStateSelect" class="form-select form-select-sm" style="background:#1e293b; color:#fff; border-color:#334155; font-weight:600; font-size:0.82rem;">
+                    <option value="TODOS">🌲 Toda la Megalópolis</option>
+                    <option value="Puebla">Puebla</option>
+                    <option value="Hidalgo">Hidalgo</option>
+                    <option value="Estado de México">Estado de México</option>
+                    <option value="Querétaro">Querétaro</option>
+                    <option value="Tlaxcala">Tlaxcala</option>
+                    <option value="Morelos">Morelos</option>
+                    <option value="Ciudad de México">Ciudad de México</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Pestañas de Navegación del Panel Derecho -->
+        <div class="dash-side-tabs">
+            <button class="dash-tab-btn active" id="tab-btn-dash">📊 Dashboard</button>
+            <button class="dash-tab-btn" id="tab-btn-ficha">📋 Ficha Técnica <span id="ficha-badge" class="badge bg-secondary p-1 ms-1 d-none">1</span></button>
+        </div>
+
+        <!-- Cuerpo del Dashboard Lateral -->
+        <div class="dash-side-body">
+
+            <!-- VISTA 1: Dashboard Analítico -->
+            <div id="view-dashboard">
+                <!-- Barra de Filtro Activo (si se hace click en prioridad o municipio) -->
+                <div id="filter-active-box" class="filter-active-bar d-none">
+                    <span id="filter-active-text">Filtro aplicado</span>
+                    <button id="btn-clear-filter" class="btn btn-xs btn-outline-light py-0 px-1">Ver todos</button>
+                </div>
+
+                <!-- Resumen Total -->
+                <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+                    <small class="text-muted fw-bold text-uppercase" style="font-size:0.70rem;">Superficie de Intervención:</small>
+                    <span class="badge bg-success" id="sideTotalHaBadge">-- ha</span>
+                </div>
+
+                <!-- Cuadrícula de KPIs Rápidos (Clickables para filtrar) -->
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="dash-mini-kpi kpi-n1" data-nivel="1" title="Clic para filtrar solo Nivel 1 en el mapa">
+                            <div class="dash-mini-lbl text-danger">N1 Crítica</div>
+                            <div class="dash-mini-val text-white" id="sideKpiN1">--</div>
+                            <div class="text-muted" style="font-size:0.68rem;">Bioingeniería</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="dash-mini-kpi kpi-n2" data-nivel="2" title="Clic para filtrar solo Nivel 2 en el mapa">
+                            <div class="dash-mini-lbl" style="color:#f77f00;">N2 Urgente</div>
+                            <div class="dash-mini-val text-white" id="sideKpiN2">--</div>
+                            <div class="text-muted" style="font-size:0.68rem;">Reforestación</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="dash-mini-kpi kpi-n3" data-nivel="3" title="Clic para filtrar solo Nivel 3 en el mapa">
+                            <div class="dash-mini-lbl" style="color:#fcbf49;">N3 Agroforestal</div>
+                            <div class="dash-mini-val text-white" id="sideKpiN3">--</div>
+                            <div class="text-muted" style="font-size:0.68rem;">MIAF / Terrazas</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="dash-mini-kpi kpi-n4" data-nivel="4" title="Clic para filtrar solo Nivel 4 en el mapa">
+                            <div class="dash-mini-lbl" style="color:#2a9d8f;">N4 Preventiva</div>
+                            <div class="dash-mini-val text-white" id="sideKpiN4">--</div>
+                            <div class="text-muted" style="font-size:0.68rem;">Enriquecimiento</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico Donut de Prioridades -->
+                <div class="p-2 rounded mb-3" style="background:#14242d; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <small class="fw-bold text-white" style="font-size:0.75rem;">Proporción por Nivel de Prioridad:</small>
+                        <small class="text-muted" id="donutSubLabel" style="font-size:0.70rem;">Megalópolis</small>
+                    </div>
+                    <div style="position:relative; height:180px;">
+                        <canvas id="sideDonutCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Top Municipios Críticos (Interactivos: clic para hacer zoom) -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <small class="fw-bold text-white text-uppercase" style="font-size:0.72rem;">Top Municipios de Mayor Urgencia:</small>
+                        <small class="text-success" style="font-size:0.68rem;">🎯 Clic para centrar</small>
+                    </div>
+                    <div id="sideMuniList">
+                        <!-- Generado dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Especies Recomendadas para este Estado -->
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <small class="fw-bold text-white text-uppercase" style="font-size:0.72rem;">Especies Arbóreas Prescritas:</small>
+                    </div>
+                    <div id="sideSpeciesList">
+                        <!-- Generado dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: Ficha Técnica Detallada del Polígono -->
+            <div id="view-ficha" class="d-none">
+                <div id="sideFichaContent">
+                    <div class="p-3 text-center text-muted" style="background:rgba(255,255,255,0.02); border-radius:8px;">
+                        <span style="font-size:2rem;">🗺️</span>
+                        <p class="small mt-2 mb-0">Haz clic sobre cualquier polígono en el mapa o selecciona un municipio en el Dashboard para consultar su ficha técnica y prescripción silvícola.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+</div>
+
+<!-- Modal oculto de respaldo para compatibilidad -->
+<div id="info-panel" style="display:none;" hidden>
+    <div id="info-content"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v4.6.5/build/ol.js"></script>
+<script>window.ol || document.write('<script src="bower_components/ol.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
+<script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
+<script src="data/config.js?v=160"></script>
+<script src="js/app.js?v=160"></script>
+
+</body>
+</html>

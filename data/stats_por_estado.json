@@ -1,0 +1,1027 @@
+{
+  "resumen_megalopolis": {
+    "total_ha": 4637868.43,
+    "total_poligonos": 20691,
+    "total_estados": 7,
+    "niveles_ha": {
+      "1": 297807.13,
+      "2": 908593.06,
+      "3": 2356811.93,
+      "4": 1074656.32
+    }
+  },
+  "estados": {
+    "Puebla": {
+      "total_ha": 1565756.04,
+      "total_poligonos": 6091,
+      "niveles_ha": {
+        "nivel_1_critica": 110456.19,
+        "nivel_2_urgente": 255557.44,
+        "nivel_3_agroforestal": 860481.65,
+        "nivel_4_preventiva": 339260.76
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 745,
+        "nivel_2_urgente": 1543,
+        "nivel_3_agroforestal": 1778,
+        "nivel_4_preventiva": 2025
+      },
+      "top_municipios": [
+        {
+          "municipio": "Tlachichuca",
+          "superficie_ha": 60510.69,
+          "poligonos": 41,
+          "extent": [
+            -97.4838,
+            19.0303,
+            -97.1946,
+            19.2667
+          ]
+        },
+        {
+          "municipio": "Chignahuapan",
+          "superficie_ha": 43052.15,
+          "poligonos": 232,
+          "extent": [
+            -98.315,
+            19.6675,
+            -97.9608,
+            19.9753
+          ]
+        },
+        {
+          "municipio": "Vicente Guerrero",
+          "superficie_ha": 41273.87,
+          "poligonos": 59,
+          "extent": [
+            -97.2935,
+            18.4275,
+            -97.0811,
+            18.6437
+          ]
+        },
+        {
+          "municipio": "Francisco Z. Mena",
+          "superficie_ha": 39317.44,
+          "poligonos": 87,
+          "extent": [
+            -97.9224,
+            20.5729,
+            -97.6932,
+            20.84
+          ]
+        },
+        {
+          "municipio": "Cuyoaco",
+          "superficie_ha": 33779.51,
+          "poligonos": 50,
+          "extent": [
+            -97.705,
+            19.4624,
+            -97.475,
+            19.7063
+          ]
+        },
+        {
+          "municipio": "Acatlán",
+          "superficie_ha": 32447.44,
+          "poligonos": 154
+        },
+        {
+          "municipio": "Ixtacamaxtitlán",
+          "superficie_ha": 31115.37,
+          "poligonos": 162
+        },
+        {
+          "municipio": "Tehuitzingo",
+          "superficie_ha": 27547.25,
+          "poligonos": 186,
+          "extent": [
+            -98.4426,
+            18.2507,
+            -98.1364,
+            18.4868
+          ]
+        },
+        {
+          "municipio": "Venustiano Carranza",
+          "superficie_ha": 26755.44,
+          "poligonos": 51,
+          "extent": [
+            -97.8251,
+            20.408,
+            -97.541,
+            20.6018
+          ]
+        },
+        {
+          "municipio": "Chiautla",
+          "superficie_ha": 26141.22,
+          "poligonos": 106,
+          "extent": [
+            -98.8069,
+            18.1065,
+            -98.3819,
+            18.4623
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 860481.65
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 323101.04
+        },
+        {
+          "especies": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto",
+          "superficie_ha": 195329.45
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 110456.19
+        },
+        {
+          "especies": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino",
+          "superficie_ha": 58438.56
+        }
+      ],
+      "extent": [
+        -99.0705,
+        17.8609,
+        -96.7247,
+        20.84
+      ]
+    },
+    "Hidalgo": {
+      "total_ha": 1067220.86,
+      "total_poligonos": 4729,
+      "niveles_ha": {
+        "nivel_1_critica": 59583.46,
+        "nivel_2_urgente": 236019.13,
+        "nivel_3_agroforestal": 492029.71,
+        "nivel_4_preventiva": 279588.57
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 551,
+        "nivel_2_urgente": 1248,
+        "nivel_3_agroforestal": 1546,
+        "nivel_4_preventiva": 1384
+      },
+      "top_municipios": [
+        {
+          "municipio": "Huichapan",
+          "superficie_ha": 62691.77,
+          "poligonos": 164,
+          "extent": [
+            -99.8591,
+            20.2685,
+            -99.4958,
+            20.5124
+          ]
+        },
+        {
+          "municipio": "Cardonal",
+          "superficie_ha": 44845.45,
+          "poligonos": 132,
+          "extent": [
+            -99.1796,
+            20.4163,
+            -98.928,
+            20.7758
+          ]
+        },
+        {
+          "municipio": "Zimapán",
+          "superficie_ha": 43909.61,
+          "poligonos": 169
+        },
+        {
+          "municipio": "Tecozautla",
+          "superficie_ha": 35837.91,
+          "poligonos": 196,
+          "extent": [
+            -99.8351,
+            20.4202,
+            -99.4492,
+            20.6591
+          ]
+        },
+        {
+          "municipio": "Nopala de Villagrán",
+          "superficie_ha": 32345.07,
+          "poligonos": 116
+        },
+        {
+          "municipio": "Atotonilco el Grande",
+          "superficie_ha": 31846.98,
+          "poligonos": 157,
+          "extent": [
+            -98.8241,
+            20.2306,
+            -98.5318,
+            20.4516
+          ]
+        },
+        {
+          "municipio": "San Felipe Orizatlán",
+          "superficie_ha": 31549.95,
+          "poligonos": 31
+        },
+        {
+          "municipio": "Huejutla de Reyes",
+          "superficie_ha": 30644.36,
+          "poligonos": 67,
+          "extent": [
+            -98.6175,
+            21.0344,
+            -98.2755,
+            21.2524
+          ]
+        },
+        {
+          "municipio": "Cuautepec de Hinojosa",
+          "superficie_ha": 30122.04,
+          "poligonos": 95,
+          "extent": [
+            -98.3852,
+            19.8424,
+            -98.1577,
+            20.0971
+          ]
+        },
+        {
+          "municipio": "Alfajayucan",
+          "superficie_ha": 29749.91,
+          "poligonos": 89,
+          "extent": [
+            -99.5423,
+            20.3071,
+            -99.2838,
+            20.5135
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 492029.71
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 257849.47
+        },
+        {
+          "especies": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino",
+          "superficie_ha": 171564.41
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 59583.46
+        },
+        {
+          "especies": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto",
+          "superficie_ha": 43432.59
+        }
+      ],
+      "extent": [
+        -99.8595,
+        19.5978,
+        -97.9849,
+        21.3985
+      ]
+    },
+    "Estado de México": {
+      "total_ha": 953333.49,
+      "total_poligonos": 5502,
+      "niveles_ha": {
+        "nivel_1_critica": 53351.22,
+        "nivel_2_urgente": 255465.95,
+        "nivel_3_agroforestal": 470069.69,
+        "nivel_4_preventiva": 174446.62
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 653,
+        "nivel_2_urgente": 1582,
+        "nivel_3_agroforestal": 1312,
+        "nivel_4_preventiva": 1955
+      },
+      "top_municipios": [
+        {
+          "municipio": "Tejupilco",
+          "superficie_ha": 57035.43,
+          "poligonos": 237,
+          "extent": [
+            -100.5386,
+            18.7593,
+            -99.9911,
+            19.0223
+          ]
+        },
+        {
+          "municipio": "Amatepec",
+          "superficie_ha": 54543.11,
+          "poligonos": 119,
+          "extent": [
+            -100.4888,
+            18.5855,
+            -100.0035,
+            18.8132
+          ]
+        },
+        {
+          "municipio": "Luvianos",
+          "superficie_ha": 51833.88,
+          "poligonos": 136,
+          "extent": [
+            -100.6131,
+            18.8165,
+            -100.2327,
+            19.0766
+          ]
+        },
+        {
+          "municipio": "Tlatlaya",
+          "superficie_ha": 50926.46,
+          "poligonos": 174,
+          "extent": [
+            -100.4494,
+            18.3669,
+            -100.0675,
+            18.6773
+          ]
+        },
+        {
+          "municipio": "Villa Victoria",
+          "superficie_ha": 42377.63,
+          "poligonos": 113,
+          "extent": [
+            -100.1514,
+            19.2927,
+            -99.8531,
+            19.572
+          ]
+        },
+        {
+          "municipio": "San José del Rincón",
+          "superficie_ha": 35109.9,
+          "poligonos": 158
+        },
+        {
+          "municipio": "Almoloya de Juárez",
+          "superficie_ha": 33706.02,
+          "poligonos": 95
+        },
+        {
+          "municipio": "Tianguistenco",
+          "superficie_ha": 31999.54,
+          "poligonos": 20,
+          "extent": [
+            -99.5369,
+            19.0865,
+            -99.3066,
+            19.238
+          ]
+        },
+        {
+          "municipio": "Jilotepec",
+          "superficie_ha": 31626.27,
+          "poligonos": 148,
+          "extent": [
+            -99.7365,
+            19.8529,
+            -99.4327,
+            20.1808
+          ]
+        },
+        {
+          "municipio": "Sultepec",
+          "superficie_ha": 30032.96,
+          "poligonos": 139,
+          "extent": [
+            -100.1385,
+            18.553,
+            -99.8448,
+            18.8898
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 470069.69
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 356175.21
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 53351.22
+        },
+        {
+          "especies": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto",
+          "superficie_ha": 53292.74
+        },
+        {
+          "especies": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino",
+          "superficie_ha": 9685.66
+        }
+      ],
+      "extent": [
+        -100.6131,
+        18.3669,
+        -98.5969,
+        20.2859
+      ]
+    },
+    "Querétaro": {
+      "total_ha": 652298.13,
+      "total_poligonos": 2494,
+      "niveles_ha": {
+        "nivel_1_critica": 59148.14,
+        "nivel_2_urgente": 123241.92,
+        "nivel_3_agroforestal": 227123.33,
+        "nivel_4_preventiva": 242784.75
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 311,
+        "nivel_2_urgente": 714,
+        "nivel_3_agroforestal": 576,
+        "nivel_4_preventiva": 893
+      },
+      "top_municipios": [
+        {
+          "municipio": "Cadereyta de Montes",
+          "superficie_ha": 77100.45,
+          "poligonos": 387,
+          "extent": [
+            -99.8817,
+            20.5639,
+            -99.3839,
+            21.0186
+          ]
+        },
+        {
+          "municipio": "Colón",
+          "superficie_ha": 66185.92,
+          "poligonos": 179
+        },
+        {
+          "municipio": "Amealco de Bonfil",
+          "superficie_ha": 61944.36,
+          "poligonos": 230,
+          "extent": [
+            -100.3096,
+            20.015,
+            -99.9218,
+            20.3594
+          ]
+        },
+        {
+          "municipio": "Peñamiller",
+          "superficie_ha": 56777.5,
+          "poligonos": 128
+        },
+        {
+          "municipio": "San Juan del Río",
+          "superficie_ha": 56063.97,
+          "poligonos": 153
+        },
+        {
+          "municipio": "Tolimán",
+          "superficie_ha": 48327.22,
+          "poligonos": 166
+        },
+        {
+          "municipio": "El Marqués",
+          "superficie_ha": 45749.13,
+          "poligonos": 144
+        },
+        {
+          "municipio": "Querétaro",
+          "superficie_ha": 40727.04,
+          "poligonos": 164
+        },
+        {
+          "municipio": "Pinal de Amoles",
+          "superficie_ha": 38131.14,
+          "poligonos": 147,
+          "extent": [
+            -99.7158,
+            20.9749,
+            -99.4292,
+            21.3581
+          ]
+        },
+        {
+          "municipio": "Jalpan de Serra",
+          "superficie_ha": 33236.56,
+          "poligonos": 176,
+          "extent": [
+            -99.5495,
+            21.0982,
+            -99.1224,
+            21.67
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 227123.33
+        },
+        {
+          "especies": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino",
+          "superficie_ha": 154732.33
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 143730.19
+        },
+        {
+          "especies": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto",
+          "superficie_ha": 66575.62
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 59148.14
+        }
+      ],
+      "extent": [
+        -100.5965,
+        20.015,
+        -99.0431,
+        21.67
+      ]
+    },
+    "Tlaxcala": {
+      "total_ha": 263249.13,
+      "total_poligonos": 1141,
+      "niveles_ha": {
+        "nivel_1_critica": 14250.58,
+        "nivel_2_urgente": 17207.83,
+        "nivel_3_agroforestal": 219669.33,
+        "nivel_4_preventiva": 12121.38
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 169,
+        "nivel_2_urgente": 281,
+        "nivel_3_agroforestal": 439,
+        "nivel_4_preventiva": 252
+      },
+      "top_municipios": [
+        {
+          "municipio": "Huamantla",
+          "superficie_ha": 79962.48,
+          "poligonos": 15,
+          "extent": [
+            -98.0395,
+            19.1926,
+            -97.8015,
+            19.4531
+          ]
+        },
+        {
+          "municipio": "Tlaxco",
+          "superficie_ha": 26910.71,
+          "poligonos": 207,
+          "extent": [
+            -98.3817,
+            19.5109,
+            -97.9556,
+            19.7289
+          ]
+        },
+        {
+          "municipio": "Atltzayanca",
+          "superficie_ha": 24018.29,
+          "poligonos": 25,
+          "extent": [
+            -97.8888,
+            19.3261,
+            -97.7039,
+            19.4984
+          ]
+        },
+        {
+          "municipio": "Atlangatepec",
+          "superficie_ha": 17580.85,
+          "poligonos": 24,
+          "extent": [
+            -98.2523,
+            19.4894,
+            -98.1013,
+            19.6043
+          ]
+        },
+        {
+          "municipio": "Terrenate",
+          "superficie_ha": 13905.9,
+          "poligonos": 41,
+          "extent": [
+            -98.0392,
+            19.4148,
+            -97.8472,
+            19.5455
+          ]
+        },
+        {
+          "municipio": "Españita",
+          "superficie_ha": 12883.71,
+          "poligonos": 139
+        },
+        {
+          "municipio": "Hueyotlipan",
+          "superficie_ha": 11477.32,
+          "poligonos": 97,
+          "extent": [
+            -98.4198,
+            19.3761,
+            -98.2761,
+            19.5834
+          ]
+        },
+        {
+          "municipio": "Ixtacuixtla de Mariano Matamoros",
+          "superficie_ha": 9482.02,
+          "poligonos": 119,
+          "extent": [
+            -98.4873,
+            19.2702,
+            -98.3,
+            19.4234
+          ]
+        },
+        {
+          "municipio": "Xaltocan",
+          "superficie_ha": 8539.78,
+          "poligonos": 54,
+          "extent": [
+            -98.2998,
+            19.3546,
+            -98.177,
+            19.4835
+          ]
+        },
+        {
+          "municipio": "Calpulalpan",
+          "superficie_ha": 8417.41,
+          "poligonos": 53,
+          "extent": [
+            -98.7084,
+            19.4633,
+            -98.4359,
+            19.6411
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 219669.33
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 20955.74
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 14250.58
+        },
+        {
+          "especies": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino",
+          "superficie_ha": 8314.53
+        },
+        {
+          "especies": "Oyamel / Abeto sagrado, Pino vikingo / Acahuite, Aile",
+          "superficie_ha": 58.94
+        }
+      ],
+      "extent": [
+        -98.7084,
+        19.1051,
+        -97.6254,
+        19.7289
+      ]
+    },
+    "Morelos": {
+      "total_ha": 113914.76,
+      "total_poligonos": 606,
+      "niveles_ha": {
+        "nivel_1_critica": 896.85,
+        "nivel_2_urgente": 19287.81,
+        "nivel_3_agroforestal": 70858.51,
+        "nivel_4_preventiva": 22871.58
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 26,
+        "nivel_2_urgente": 152,
+        "nivel_3_agroforestal": 177,
+        "nivel_4_preventiva": 251
+      },
+      "top_municipios": [
+        {
+          "municipio": "Puente de Ixtla",
+          "superficie_ha": 13686.85,
+          "poligonos": 42,
+          "extent": [
+            -99.3801,
+            18.451,
+            -99.1759,
+            18.7061
+          ]
+        },
+        {
+          "municipio": "Tlaquiltenango",
+          "superficie_ha": 13254.86,
+          "poligonos": 116,
+          "extent": [
+            -99.235,
+            18.3324,
+            -98.9141,
+            18.6627
+          ]
+        },
+        {
+          "municipio": "Amacuzac",
+          "superficie_ha": 8327.51,
+          "poligonos": 23,
+          "extent": [
+            -99.4644,
+            18.5205,
+            -99.327,
+            18.6549
+          ]
+        },
+        {
+          "municipio": "Ocuituco",
+          "superficie_ha": 7760.35,
+          "poligonos": 8,
+          "extent": [
+            -98.8317,
+            18.8125,
+            -98.7263,
+            18.9457
+          ]
+        },
+        {
+          "municipio": "Cuernavaca",
+          "superficie_ha": 7566.66,
+          "poligonos": 29,
+          "extent": [
+            -99.342,
+            18.8419,
+            -99.1805,
+            19.0247
+          ]
+        },
+        {
+          "municipio": "Ayala",
+          "superficie_ha": 5564.26,
+          "poligonos": 31,
+          "extent": [
+            -99.0946,
+            18.5642,
+            -98.8358,
+            18.8309
+          ]
+        },
+        {
+          "municipio": "Coatlán del Río",
+          "superficie_ha": 5269.3,
+          "poligonos": 17
+        },
+        {
+          "municipio": "Miacatlán",
+          "superficie_ha": 5131.31,
+          "poligonos": 32
+        },
+        {
+          "municipio": "Huitzilac",
+          "superficie_ha": 4806.21,
+          "poligonos": 24,
+          "extent": [
+            -99.3191,
+            18.9817,
+            -99.1354,
+            19.1317
+          ]
+        },
+        {
+          "municipio": "Jojutla",
+          "superficie_ha": 4661.53,
+          "poligonos": 13,
+          "extent": [
+            -99.3019,
+            18.5204,
+            -99.1479,
+            18.6495
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 70858.51
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 24398.71
+        },
+        {
+          "especies": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto",
+          "superficie_ha": 17312.86
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 896.85
+        },
+        {
+          "especies": "Pino de alta montaña / Ocote blanco, Enebro azul, Aile de montaña",
+          "superficie_ha": 166.59
+        }
+      ],
+      "extent": [
+        -99.4944,
+        18.3324,
+        -98.6329,
+        19.1317
+      ]
+    },
+    "Ciudad de México": {
+      "total_ha": 22096.03,
+      "total_poligonos": 128,
+      "niveles_ha": {
+        "nivel_1_critica": 120.71,
+        "nivel_2_urgente": 1812.98,
+        "nivel_3_agroforestal": 16579.7,
+        "nivel_4_preventiva": 3582.65
+      },
+      "niveles_poligonos": {
+        "nivel_1_critica": 4,
+        "nivel_2_urgente": 22,
+        "nivel_3_agroforestal": 30,
+        "nivel_4_preventiva": 72
+      },
+      "top_municipios": [
+        {
+          "municipio": "Tlalpan",
+          "superficie_ha": 8265.99,
+          "poligonos": 45,
+          "extent": [
+            -99.3162,
+            19.0894,
+            -99.1009,
+            19.3123
+          ]
+        },
+        {
+          "municipio": "Milpa Alta",
+          "superficie_ha": 8204.6,
+          "poligonos": 45,
+          "extent": [
+            -99.1633,
+            19.0482,
+            -98.9524,
+            19.2277
+          ]
+        },
+        {
+          "municipio": "Xochimilco",
+          "superficie_ha": 2822.28,
+          "poligonos": 15,
+          "extent": [
+            -99.1544,
+            19.1525,
+            -99.007,
+            19.3204
+          ]
+        },
+        {
+          "municipio": "Tláhuac",
+          "superficie_ha": 1166.13,
+          "poligonos": 2
+        },
+        {
+          "municipio": "La Magdalena Contreras",
+          "superficie_ha": 641.91,
+          "poligonos": 11,
+          "extent": [
+            -99.3233,
+            19.2131,
+            -99.2067,
+            19.3379
+          ]
+        },
+        {
+          "municipio": "Gustavo A. Madero",
+          "superficie_ha": 456.32,
+          "poligonos": 3,
+          "extent": [
+            -99.177,
+            19.4448,
+            -99.0509,
+            19.5928
+          ]
+        },
+        {
+          "municipio": "Álvaro Obregón",
+          "superficie_ha": 335.31,
+          "poligonos": 3
+        },
+        {
+          "municipio": "Cuajimalpa de Morelos",
+          "superficie_ha": 203.5,
+          "poligonos": 4,
+          "extent": [
+            -99.3649,
+            19.2326,
+            -99.2467,
+            19.4048
+          ]
+        }
+      ],
+      "top_especies": [
+        {
+          "especies": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+          "superficie_ha": 16579.7
+        },
+        {
+          "especies": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+          "superficie_ha": 4405.53
+        },
+        {
+          "especies": "Pino de alta montaña / Ocote blanco, Enebro azul, Aile de montaña",
+          "superficie_ha": 670.42
+        },
+        {
+          "especies": "Oyamel / Abeto sagrado, Pino vikingo / Acahuite, Aile",
+          "superficie_ha": 319.68
+        },
+        {
+          "especies": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+          "superficie_ha": 120.71
+        }
+      ],
+      "extent": [
+        -99.3649,
+        19.0482,
+        -98.9403,
+        19.5928
+      ]
+    }
+  },
+  "state_extents": {
+    "Ciudad de México": [
+      -99.3649,
+      19.0482,
+      -98.9403,
+      19.5928
+    ],
+    "Estado de México": [
+      -100.6131,
+      18.3669,
+      -98.5969,
+      20.2859
+    ],
+    "Hidalgo": [
+      -99.8595,
+      19.5978,
+      -97.9849,
+      21.3985
+    ],
+    "Morelos": [
+      -99.4944,
+      18.3324,
+      -98.6329,
+      19.1317
+    ],
+    "Puebla": [
+      -99.0705,
+      17.8609,
+      -96.7247,
+      20.84
+    ],
+    "Querétaro": [
+      -100.5965,
+      20.015,
+      -99.0431,
+      21.67
+    ],
+    "Tlaxcala": [
+      -98.7084,
+      19.1051,
+      -97.6254,
+      19.7289
+    ],
+    "TODOS": [
+      -100.6253,
+      17.8126,
+      -96.599,
+      21.6864
+    ]
+  }
+}

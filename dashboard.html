@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard Ejecutivo de Prioridades de Reforestación - Megalópolis</title>
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg-body: #0b1319;
+            --bg-card: #13222a;
+            --bg-card-hover: #192d37;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --primary-accent: #10b981;
+            --c-critica: #d90429;
+            --c-urgente: #f77f00;
+            --c-agro: #fcbf49;
+            --c-prevent: #2a9d8f;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .dash-nav {
+            background: linear-gradient(135deg, #091a14 0%, #112c22 100%);
+            border-bottom: 2px solid #059669;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Card Styles */
+        .dash-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-card:hover {
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+
+        /* KPI Cards */
+        .kpi-card {
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .kpi-total::before { background: #3b82f6; }
+        .kpi-critica::before { background: var(--c-critica); }
+        .kpi-urgente::before { background: var(--c-urgente); }
+        .kpi-agro::before { background: var(--c-agro); }
+        .kpi-prevent::before { background: var(--c-prevent); }
+
+        .kpi-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .kpi-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        /* Select Styling */
+        .state-select {
+            background-color: #1e333e;
+            color: #f8fafc;
+            border: 1px solid #334e5c;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+        }
+
+        .state-select:focus {
+            background-color: #243e4c;
+            color: #fff;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+        }
+
+        /* Tables */
+        .custom-table {
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        .custom-table th {
+            background-color: rgba(0, 0, 0, 0.25);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-color: var(--border-color);
+            padding: 0.75rem;
+        }
+
+        .custom-table td {
+            border-color: var(--border-color);
+            padding: 0.7rem 0.75rem;
+            font-size: 0.85rem;
+            vertical-align: middle;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Badges */
+        .badge-critica { background-color: var(--c-critica); color: #fff; }
+        .badge-urgente { background-color: var(--c-urgente); color: #fff; }
+        .badge-agro { background-color: var(--c-agro); color: #000; }
+        .badge-prevent { background-color: var(--c-prevent); color: #fff; }
+
+        /* Species Tag */
+        .species-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar Superior -->
+<nav class="navbar navbar-dark dash-nav py-2 px-3 mb-4">
+    <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+            <span style="font-size: 1.6rem;">🌲</span>
+            <div>
+                <h6 class="mb-0 fw-bold text-white">Dashboard de Toma de Decisiones - Megalópolis</h6>
+                <small class="text-success" style="font-size: 0.75rem;">Análisis Territorial de Prioridades de Reforestación y Restauración</small>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <!-- Selector de Estado -->
+            <div class="d-flex align-items-center gap-2">
+                <label for="stateSelector" class="small text-muted fw-bold d-none d-md-block">ESTADO:</label>
+                <select id="stateSelector" class="form-select form-select-sm state-select shadow-sm" style="min-width: 220px;">
+                    <option value="TODOS">🌲 Toda la Megalópolis</option>
+                    <option value="Puebla">Puebla</option>
+                    <option value="Hidalgo">Hidalgo</option>
+                    <option value="Estado de México">Estado de México</option>
+                    <option value="Querétaro">Querétaro</option>
+                    <option value="Tlaxcala">Tlaxcala</option>
+                    <option value="Morelos">Morelos</option>
+                    <option value="Ciudad de México">Ciudad de México</option>
+                </select>
+            </div>
+            <!-- Enlace al Geovisor en Mapa -->
+            <a href="index.html" class="btn btn-sm btn-outline-success fw-bold d-flex align-items-center gap-1 shadow-sm">
+                <span>🗺️</span> <span>Ver en Geovisor</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid px-4 pb-5">
+
+    <!-- Fila 1: KPIs Principales -->
+    <div class="row g-3 mb-4">
+        <!-- KPI 1: Total Hectáreas -->
+        <div class="col-12 col-sm-6 col-xl-2">
+            <div class="dash-card kpi-card kpi-total h-100">
+                <div class="kpi-label">Superficie Total</div>
+                <div class="kpi-value text-white" id="kpiTotalHa">--</div>
+                <div class="kpi-sub mt-1" id="kpiTotalPolys">-- polígonos</div>
+            </div>
+        </div>
+        <!-- KPI 2: Nivel 1 Crítica -->
+        <div class="col-12 col-sm-6 col-xl-2">
+            <div class="dash-card kpi-card kpi-critica h-100">
+                <div class="kpi-label text-danger">Nivel 1: Crítica</div>
+                <div class="kpi-value text-danger" id="kpiNivel1Ha">--</div>
+                <div class="kpi-sub mt-1" id="kpiNivel1Pct">Bioingeniería / Cárcavas</div>
+            </div>
+        </div>
+        <!-- KPI 3: Nivel 2 Urgente -->
+        <div class="col-12 col-sm-6 col-xl-2">
+            <div class="dash-card kpi-card kpi-urgente h-100">
+                <div class="kpi-label" style="color:var(--c-urgente);">Nivel 2: Urgente</div>
+                <div class="kpi-value" style="color:var(--c-urgente);" id="kpiNivel2Ha">--</div>
+                <div class="kpi-sub mt-1" id="kpiNivel2Pct">Reforestación Activa</div>
+            </div>
+        </div>
+        <!-- KPI 4: Nivel 3 Agroforestería -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="dash-card kpi-card kpi-agro h-100">
+                <div class="kpi-label" style="color:var(--c-agro);">Nivel 3: Agroforestería</div>
+                <div class="kpi-value" style="color:var(--c-agro);" id="kpiNivel3Ha">--</div>
+                <div class="kpi-sub mt-1" id="kpiNivel3Pct">MIAF / Terrazas / Bordos</div>
+            </div>
+        </div>
+        <!-- KPI 5: Nivel 4 Preventiva -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="dash-card kpi-card kpi-prevent h-100">
+                <div class="kpi-label" style="color:var(--c-prevent);">Nivel 4: Preventiva</div>
+                <div class="kpi-value" style="color:var(--c-prevent);" id="kpiNivel4Ha">--</div>
+                <div class="kpi-sub mt-1" id="kpiNivel4Pct">Enriquecimiento Arbóreo</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fila 2: Gráficos -->
+    <div class="row g-3 mb-4">
+        <!-- Gráfico 1: Distribución por Prioridad (Donut) -->
+        <div class="col-12 col-lg-4">
+            <div class="dash-card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-white">Distribución de Prioridades</h6>
+                    <small class="text-muted" id="chartStateLabel">Megalópolis</small>
+                </div>
+                <div style="position: relative; height: 260px;">
+                    <canvas id="priorityDonutChart"></canvas>
+                </div>
+                <div class="d-flex justify-content-around mt-3 pt-2 border-top border-secondary text-center small">
+                    <div><span class="badge badge-critica">N1</span><div class="fw-bold mt-1" id="legN1">--</div></div>
+                    <div><span class="badge badge-urgente">N2</span><div class="fw-bold mt-1" id="legN2">--</div></div>
+                    <div><span class="badge badge-agro">N3</span><div class="fw-bold mt-1" id="legN3">--</div></div>
+                    <div><span class="badge badge-prevent">N4</span><div class="fw-bold mt-1" id="legN4">--</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico 2: Comparativa de Hectáreas (Barras) -->
+        <div class="col-12 col-lg-8">
+            <div class="dash-card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-white" id="barChartTitle">Superficie Prioritaria por Entidad Federativa (Hectáreas)</h6>
+                    <span class="badge bg-dark border text-muted">Cálculo en SIG</span>
+                </div>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="mainBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fila 3: Top Municipios Críticos y Especies Recomendadas -->
+    <div class="row g-3">
+        <!-- Tabla de Municipios -->
+        <div class="col-12 col-lg-7">
+            <div class="dash-card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-white">Municipios con Mayor Superficie de Intervención</h6>
+                    <span class="badge bg-secondary" id="muniTableBadge">Top 10 Municipios</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Municipio</th>
+                                <th>Superficie (ha)</th>
+                                <th>Polígonos</th>
+                                <th>% del Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="muniTableBody">
+                            <!-- Filas generadas dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Especies Recomendadas -->
+        <div class="col-12 col-lg-5">
+            <div class="dash-card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-white">Especies Nativas Prescritas para Reforestación</h6>
+                    <span class="badge bg-success">Aptitud Ecológica</span>
+                </div>
+                <p class="small text-muted mb-3">Selección florística adaptada al clima, pendiente y degradación del suelo:</p>
+                <div id="speciesContainer">
+                    <!-- Contenido dinamico -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let rawData = null;
+    let donutChartInstance = null;
+    let barChartInstance = null;
+
+    // Formatear numeros
+    function formatHa(val) {
+        return Number(val || 0).toLocaleString('es-MX', { maximumFractionDigits: 0 }) + ' ha';
+    }
+
+    function formatNum(val) {
+        return Number(val || 0).toLocaleString('es-MX');
+    }
+
+    // Cargar datos
+    async function initDashboard() {
+        try {
+            const resp = await fetch('data/stats_por_estado.json?v=' + Date.now());
+            rawData = await resp.json();
+            
+            // Render inicial (Megalopolis Total)
+            updateDashboardView('TODOS');
+
+            // Event listener en selector
+            document.getElementById('stateSelector').addEventListener('change', (e) => {
+                updateDashboardView(e.target.value);
+            });
+
+        } catch (err) {
+            console.error('Error cargando estadísticas:', err);
+            alert('No se pudieron cargar los datos del dashboard.');
+        }
+    }
+
+    // Actualizar vista completa segun seleccion
+    function updateDashboardView(selectedState) {
+        if (!rawData) return;
+
+        const isAll = (selectedState === 'TODOS');
+        const summary = rawData.resumen_megalopolis;
+        const estados = rawData.estados;
+
+        let totalHa = 0;
+        let totalPolys = 0;
+        let n1 = 0, n2 = 0, n3 = 0, n4 = 0;
+        let topMunis = [];
+        let topEspecies = [];
+
+        if (isAll) {
+            totalHa = summary.total_ha;
+            totalPolys = summary.total_poligonos;
+            n1 = summary.niveles_ha['1'];
+            n2 = summary.niveles_ha['2'];
+            n3 = summary.niveles_ha['3'];
+            n4 = summary.niveles_ha['4'];
+
+            // Agrupar top municipios de toda la megalopolis
+            const allMunis = [];
+            Object.entries(estados).forEach(([edoName, st]) => {
+                (st.top_municipios || []).forEach(m => {
+                    allMunis.push({ ...m, municipio: `${m.municipio} (${edoName})` });
+                });
+            });
+            allMunis.sort((a, b) => b.superficie_ha - a.superficie_ha);
+            topMunis = allMunis.slice(0, 10);
+
+            // Especies globales
+            topEspecies = [
+                { especies: "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño", superficie_ha: 1560000 },
+                { especies: "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile", superficie_ha: 1250000 },
+                { especies: "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino", superficie_ha: 840000 },
+                { especies: "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río (Bioingeniería)", superficie_ha: 298000 }
+            ];
+
+        } else {
+            const st = estados[selectedState];
+            if (!st) return;
+
+            totalHa = st.total_ha;
+            totalPolys = st.total_poligonos;
+            n1 = st.niveles_ha.nivel_1_critica;
+            n2 = st.niveles_ha.nivel_2_urgente;
+            n3 = st.niveles_ha.nivel_3_agroforestal;
+            n4 = st.niveles_ha.nivel_4_preventiva;
+            topMunis = st.top_municipios || [];
+            topEspecies = st.top_especies || [];
+        }
+
+        // 1. Actualizar KPIs
+        document.getElementById('kpiTotalHa').textContent = formatHa(totalHa);
+        document.getElementById('kpiTotalPolys').textContent = `${formatNum(totalPolys)} polígonos`;
+
+        document.getElementById('kpiNivel1Ha').textContent = formatHa(n1);
+        document.getElementById('kpiNivel2Ha').textContent = formatHa(n2);
+        document.getElementById('kpiNivel3Ha').textContent = formatHa(n3);
+        document.getElementById('kpiNivel4Ha').textContent = formatHa(n4);
+
+        document.getElementById('legN1').textContent = formatHa(n1);
+        document.getElementById('legN2').textContent = formatHa(n2);
+        document.getElementById('legN3').textContent = formatHa(n3);
+        document.getElementById('legN4').textContent = formatHa(n4);
+
+        document.getElementById('chartStateLabel').textContent = isAll ? 'Toda la Megalópolis' : selectedState;
+
+        // 2. Gráfico Donut de Prioridades
+        renderDonutChart(n1, n2, n3, n4);
+
+        // 3. Gráfico de Barras
+        if (isAll) {
+            document.getElementById('barChartTitle').textContent = 'Superficie Prioritaria por Entidad Federativa (Hectáreas)';
+            renderStatesBarChart(estados);
+        } else {
+            document.getElementById('barChartTitle').textContent = `Top 10 Municipios con Mayor Prioridad en ${selectedState} (Hectáreas)`;
+            renderMunicipalitiesBarChart(topMunis);
+        }
+
+        // 4. Tabla de Municipios
+        renderMuniTable(topMunis, totalHa);
+
+        // 5. Especies
+        renderSpecies(topEspecies);
+    }
+
+    // Donut Chart
+    function renderDonutChart(n1, n2, n3, n4) {
+        const ctx = document.getElementById('priorityDonutChart').getContext('2d');
+        if (donutChartInstance) donutChartInstance.destroy();
+
+        donutChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Nivel 1 (Crítica)', 'Nivel 2 (Urgente)', 'Nivel 3 (Agroforestal)', 'Nivel 4 (Preventiva)'],
+                datasets: [{
+                    data: [n1, n2, n3, n4],
+                    backgroundColor: ['#d90429', '#f77f00', '#fcbf49', '#2a9d8f'],
+                    borderColor: '#13222a',
+                    borderWidth: 2,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                const val = ctx.raw || 0;
+                                const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                const pct = ((val / total) * 100).toFixed(1);
+                                return ` ${ctx.label}: ${formatHa(val)} (${pct}%)`;
+                            }
+                        }
+                    }
+                },
+                cutout: '68%'
+            }
+        });
+    }
+
+    // Bar Chart Estados (Vista General)
+    function renderStatesBarChart(estados) {
+        const ctx = document.getElementById('mainBarChart').getContext('2d');
+        if (barChartInstance) barChartInstance.destroy();
+
+        const sorted = Object.entries(estados).sort((a, b) => b[1].total_ha - a[1].total_ha);
+        const labels = sorted.map(s => s[0]);
+        const dataValues = sorted.map(s => s[1].total_ha);
+
+        barChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Superficie Prioritaria (ha)',
+                    data: dataValues,
+                    backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                    borderColor: '#10b981',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#94a3b8', font: { size: 11 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#94a3b8',
+                            callback: v => (v >= 1000 ? (v / 1000).toLocaleString() + 'k ha' : v)
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.06)' }
+                    }
+                }
+            }
+        });
+    }
+
+    // Bar Chart Municipios (Vista de Estado Individual)
+    function renderMunicipalitiesBarChart(muns) {
+        const ctx = document.getElementById('mainBarChart').getContext('2d');
+        if (barChartInstance) barChartInstance.destroy();
+
+        const labels = muns.map(m => m.municipio);
+        const dataValues = muns.map(m => m.superficie_ha);
+
+        barChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Hectáreas',
+                    data: dataValues,
+                    backgroundColor: 'rgba(247, 127, 0, 0.85)',
+                    borderColor: '#f77f00',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#94a3b8',
+                            callback: v => (v >= 1000 ? (v / 1000).toLocaleString() + 'k ha' : v)
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.06)' }
+                    },
+                    y: {
+                        ticks: { color: '#cbd5e1', font: { size: 11 } },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+    // Tabla Municipios
+    function renderMuniTable(muns, totalStateHa) {
+        const tbody = document.getElementById('muniTableBody');
+        if (!muns || muns.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">No hay registros disponibles.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = muns.map((m, idx) => {
+            const pct = totalStateHa > 0 ? ((m.superficie_ha / totalStateHa) * 100).toFixed(1) : 0;
+            return `
+            <tr>
+                <td class="text-muted fw-bold">${idx + 1}</td>
+                <td class="fw-semibold text-white">${m.municipio}</td>
+                <td class="fw-bold text-success">${formatHa(m.superficie_ha)}</td>
+                <td><span class="badge bg-secondary">${formatNum(m.poligonos)} polys</span></td>
+                <td>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="progress flex-grow-1" style="height: 6px; background: rgba(255,255,255,0.08);">
+                            <div class="progress-bar bg-success" style="width: ${pct}%;"></div>
+                        </div>
+                        <span class="small text-muted" style="min-width: 40px;">${pct}%</span>
+                    </div>
+                </td>
+            </tr>
+            `;
+        }).join('');
+    }
+
+    // Especies
+    function renderSpecies(especies) {
+        const box = document.getElementById('speciesContainer');
+        if (!especies || especies.length === 0) {
+            box.innerHTML = `<p class="text-muted small">No hay información florística específica.</p>`;
+            return;
+        }
+
+        box.innerHTML = especies.map(esp => `
+            <div class="species-item">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <span class="fw-bold text-white small">🌲 ${esp.especies}</span>
+                    <span class="badge bg-dark border text-success">${formatHa(esp.superficie_ha)}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', initDashboard);
+</script>
+
+</body>
+</html>

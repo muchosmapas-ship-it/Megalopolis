@@ -1,0 +1,244 @@
+[
+  {
+    "text": "🌲 Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño (Pinus montezumae, Quercus rugosa, Quercus laurina, Alnus jorullensis, Arbutus xalapensis)",
+    "capa": "zonas_prioritarias",
+    "gid": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño",
+    "label": "Bosque Templado de Pino-Encino - 7,916 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Pino Moctezuma / Ocote macho, Encino roble, Encino laurelillo, Aile, Madroño"
+    }
+  },
+  {
+    "text": "🌲 Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile (Agave salmiana, Prunus persica, Pinus montezumae, Alnus jorullensis)",
+    "capa": "zonas_prioritarias",
+    "gid": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile",
+    "label": "Sistemas Agroforestales en Laderas (MIAF / Terrazas) - 5,858 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Maguey pulquero en bordos, Durazno criollo / Frutales, Pino Moctezuma, Aile"
+    }
+  },
+  {
+    "text": "🌲 Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río (Salix bonplandiana, Buddleja cordata, Agave salmiana, Salix exigua)",
+    "capa": "zonas_prioritarias",
+    "gid": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río",
+    "label": "Bioingeniería de Cárcavas y Zonas Hidrológicas - 2,459 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Ahuejote / Sauce blanco, Tepozán, Maguey pulquero, Sauce de río"
+    }
+  },
+  {
+    "text": "🌲 Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto (Bursera copallifera, Lysiloma acapulcense, Conzattia multiflora, Ipomoea murucoides)",
+    "capa": "zonas_prioritarias",
+    "gid": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto",
+    "label": "Selva Baja Caducifolia (Cuenca Cálida) - 1,879 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Copal ancho, Tepehuaje, Parota de monte / Guayacán, Cazahuate / Palo del muerto"
+    }
+  },
+  {
+    "text": "🌲 Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino (Prosopis laevigata, Acacia farnesiana, Pinus cembroides, Agave salmiana, Juniperus deppeana)",
+    "capa": "zonas_prioritarias",
+    "gid": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino",
+    "label": "Matorral Xerófilo y Zonas Semisecas - 1,868 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Mezquite dulce, Huizache, Pino piñonero, Maguey pulquero, Táscate / Sabino"
+    }
+  },
+  {
+    "text": "🌲 Liquidámbar / Ocozote, Pino pátula / Llorón, Aliso de río, Encinos de niebla (Liquidambar styraciflua, Pinus patula, Alnus acuminata, Quercus spp.)",
+    "capa": "zonas_prioritarias",
+    "gid": "Liquidámbar / Ocozote, Pino pátula / Llorón, Aliso de río, Encinos de niebla",
+    "label": "Bosque Mesófilo de Montaña (Niebla) - 377 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Liquidámbar / Ocozote, Pino pátula / Llorón, Aliso de río, Encinos de niebla"
+    }
+  },
+  {
+    "text": "🌲 Oyamel / Abeto sagrado, Pino vikingo / Acahuite, Aile (Abies religiosa, Pinus ayacahuite, Alnus jorullensis)",
+    "capa": "zonas_prioritarias",
+    "gid": "Oyamel / Abeto sagrado, Pino vikingo / Acahuite, Aile",
+    "label": "Bosque de Oyamel y Cañadas Húmedas - 241 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Oyamel / Abeto sagrado, Pino vikingo / Acahuite, Aile"
+    }
+  },
+  {
+    "text": "🌲 Pino de alta montaña / Ocote blanco, Enebro azul, Aile de montaña (Pinus hartwegii, Juniperus monticola, Alnus jorullensis)",
+    "capa": "zonas_prioritarias",
+    "gid": "Pino de alta montaña / Ocote blanco, Enebro azul, Aile de montaña",
+    "label": "Bosque de Alta Montaña - 93 polígonos",
+    "type": "especie",
+    "filter": {
+      "key": "SP_COMUN",
+      "val": "Pino de alta montaña / Ocote blanco, Enebro azul, Aile de montaña"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Preventiva: Enriquecimiento de densidad arbórea y veda de pastoreo",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Preventiva: Enriquecimiento de densidad arbórea y veda de pastoreo",
+    "label": "Acción Prioritaria (5,333 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Preventiva: Enriquecimiento de densidad arbórea y veda de pastoreo"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Urgente: Alta pérdida de suelo en pastizal/secundaria (Restauración Forestal Activa)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Urgente: Alta pérdida de suelo en pastizal/secundaria (Restauración Forestal Activa)",
+    "label": "Acción Prioritaria (2,600 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Urgente: Alta pérdida de suelo en pastizal/secundaria (Restauración Forestal Activa)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Óptima/Urgente: Reforestación directa intensiva (Máxima tasa de supervivencia)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Óptima/Urgente: Reforestación directa intensiva (Máxima tasa de supervivencia)",
+    "label": "Acción Prioritaria (2,456 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Óptima/Urgente: Reforestación directa intensiva (Máxima tasa de supervivencia)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Agroforestal Preventiva: Labranza de conservación y linderos arbóreos",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Agroforestal Preventiva: Labranza de conservación y linderos arbóreos",
+    "label": "Acción Prioritaria (2,253 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Agroforestal Preventiva: Labranza de conservación y linderos arbóreos"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Agroforestal: Erosión moderada en temporal (Barreras vivas y bordos)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Agroforestal: Erosión moderada en temporal (Barreras vivas y bordos)",
+    "label": "Acción Prioritaria (1,861 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Agroforestal: Erosión moderada en temporal (Barreras vivas y bordos)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Alta: Erosión severa en cultivo temporal (Reconversión y Terrazas / MIAF)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Alta: Erosión severa en cultivo temporal (Reconversión y Terrazas / MIAF)",
+    "label": "Acción Prioritaria (1,744 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Alta: Erosión severa en cultivo temporal (Reconversión y Terrazas / MIAF)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Crítica: Erosión fuerte en ladera forestal (Obras de retención de suelo)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Crítica: Erosión fuerte en ladera forestal (Obras de retención de suelo)",
+    "label": "Acción Prioritaria (1,506 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Crítica: Erosión fuerte en ladera forestal (Obras de retención de suelo)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad de Enriquecimiento: Bosque con suelo en lavado (Zanjas y plantas retenedoras)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad de Enriquecimiento: Bosque con suelo en lavado (Zanjas y plantas retenedoras)",
+    "label": "Acción Prioritaria (1,499 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad de Enriquecimiento: Bosque con suelo en lavado (Zanjas y plantas retenedoras)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Crítica: Cárcavas activas (Presas de morillo/gavión + Estabilización previa)",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Crítica: Cárcavas activas (Presas de morillo/gavión + Estabilización previa)",
+    "label": "Acción Prioritaria (953 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Crítica: Cárcavas activas (Presas de morillo/gavión + Estabilización previa)"
+    }
+  },
+  {
+    "text": "🎯 Prioridad Reforestación: Suelo con erosión moderada",
+    "capa": "zonas_prioritarias",
+    "gid": "Prioridad Reforestación: Suelo con erosión moderada",
+    "label": "Acción Prioritaria (486 zonas)",
+    "type": "accion",
+    "filter": {
+      "key": "ACCION_INTEG",
+      "val": "Prioridad Reforestación: Suelo con erosión moderada"
+    }
+  },
+  {
+    "text": "⭐ 4_PREVENTIVA_ENRIQUECIMIENTO",
+    "capa": "zonas_prioritarias",
+    "gid": "4_PREVENTIVA_ENRIQUECIMIENTO",
+    "label": "Nivel de Prioridad (6,832 zonas)",
+    "type": "prioridad",
+    "filter": {
+      "key": "PRIOR_INTEG",
+      "val": "4_PREVENTIVA_ENRIQUECIMIENTO"
+    }
+  },
+  {
+    "text": "⭐ 3_AGROFORESTERIA",
+    "capa": "zonas_prioritarias",
+    "gid": "3_AGROFORESTERIA",
+    "label": "Nivel de Prioridad (5,858 zonas)",
+    "type": "prioridad",
+    "filter": {
+      "key": "PRIOR_INTEG",
+      "val": "3_AGROFORESTERIA"
+    }
+  },
+  {
+    "text": "⭐ 2_URGENTE_REFORESTACION",
+    "capa": "zonas_prioritarias",
+    "gid": "2_URGENTE_REFORESTACION",
+    "label": "Nivel de Prioridad (5,542 zonas)",
+    "type": "prioridad",
+    "filter": {
+      "key": "PRIOR_INTEG",
+      "val": "2_URGENTE_REFORESTACION"
+    }
+  },
+  {
+    "text": "⭐ 1_CRITICA_BIOINGENIERIA",
+    "capa": "zonas_prioritarias",
+    "gid": "1_CRITICA_BIOINGENIERIA",
+    "label": "Nivel de Prioridad (2,459 zonas)",
+    "type": "prioridad",
+    "filter": {
+      "key": "PRIOR_INTEG",
+      "val": "1_CRITICA_BIOINGENIERIA"
+    }
+  }
+]

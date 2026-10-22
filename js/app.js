@@ -302,15 +302,15 @@
     const highlightLayer = new ol.layer.Vector({
         source: highlightSource,
         style: new ol.style.Style({
-            fill: new ol.style.Fill({ color: 'rgba(82, 183, 136, 0.40)' }),  // amarillo semi-transparente
-            stroke: new ol.style.Stroke({ color: '#1b4d3e', width: 4 }),
+            fill: new ol.style.Fill({ color: 'rgba(0, 150, 255, 0.45)' }),  // Azul brillante translúcido
+            stroke: new ol.style.Stroke({ color: '#0066ff', width: 3.5 }),   // Borde azul eléctrico
             image: new ol.style.Circle({
                 radius: 10,
-                fill: new ol.style.Fill({ color: 'rgba(45, 106, 79, 0.70)' }),
-                stroke: new ol.style.Stroke({ color: '#d97706', width: 3 })
+                fill: new ol.style.Fill({ color: 'rgba(0, 150, 255, 0.70)' }),
+                stroke: new ol.style.Stroke({ color: '#0044cc', width: 3 })
             })
         }),
-        zIndex: 200  // Por encima de overlays (100/101)
+        zIndex: 250  // Por encima de todas las demás capas
     });
     map.addLayer(highlightLayer);
 
@@ -1039,103 +1039,113 @@ const ovPanel = document.getElementById('overlay-panel');
     }
 
     // =====================================================================
-    // CLICK-TO-IDENTIFY (siempre encuentra el feature mas cercano)
+    // SELECCIÓN AL HACER CLIC EN EL MAPA (DESTACADO EN AZUL Y FICHA TÉCNICA)
     // =====================================================================
     map.on('click', evt => {
-        const visibleOverlayLayers = Object.values(overlays)
-            .filter(o => o && o.layer.getVisible())
-            .map(o => o.layer);
+        let selectedFeature = null;
+        let selectedLayerName = null;
 
-        // 1) Intento directo: features en el pixel + tolerancia 12px
-        let features = [];
-        if (visibleOverlayLayers.length > 0) {
-            features = map.getFeaturesAtPixel(evt.pixel, {
-                hitTolerance: 12,
-                layerFilter: (layer) => visibleOverlayLayers.includes(layer)
-            });
+        // 1. Prioridad: Buscar primero en zonas_prioritarias si la capa está visible
+        const ovZonas = overlays['zonas_prioritarias'];
+        if (ovZonas && ovZonas.layer && ovZonas.layer.getVisible()) {
+            map.forEachFeatureAtPixel(evt.pixel, (f, layer) => {
+                if (layer === ovZonas.layer) {
+                    selectedFeature = f;
+                    selectedLayerName = 'zonas_prioritarias';
+                    return true;
+                }
+            }, { hitTolerance: 6 });
         }
 
-        // 2) Si no hay hit directo, buscar el feature mas cercano (cualquier distancia)
-        if (features.length === 0) {
-            const coord = evt.coordinate;
-            const closest = [];
-            for (const o of Object.values(overlays)) {
-                if (!o || !o.layer.getVisible()) continue;
-                const src = o.layer.getSource();
-                if (!src) continue;
-                const layerName = o.layer.get('name');
-                let candidates = [];
-                if (src instanceof ol.source.Cluster) {
-                    candidates = src.getFeatures();
-                } else if (src.getFeatures) {
-                    candidates = src.getFeatures();
-                }
-                let best = null, bestDist = Infinity;
-                for (const f of candidates) {
-                    let geom, inner;
-                    if (f.get('features')) {
-                        geom = f.getGeometry();
-                        inner = f.get('features');
-                    } else {
-                        geom = f.getGeometry();
-                        inner = [f];
+        // 2. Si no se tocó una zona prioritaria, buscar en municipios
+        if (!selectedFeature) {
+            const ovMuni = overlays['municipios'];
+            if (ovMuni && ovMuni.layer && ovMuni.layer.getVisible()) {
+                map.forEachFeatureAtPixel(evt.pixel, (f, layer) => {
+                    if (layer === ovMuni.layer) {
+                        selectedFeature = f;
+                        selectedLayerName = 'municipios';
+                        return true;
                     }
-                    if (!geom) continue;
-                    const d = pointToFeatureDistance(coord, geom);
-                    if (d < bestDist) { bestDist = d; best = { feature: f, inner, geom, layerName }; }
-                }
-                if (best) closest.push(best);
-            }
-            closest.sort((a, b) => pointToFeatureDistance(evt.coordinate, a.geom) - pointToFeatureDistance(evt.coordinate, b.geom));
-            for (const c of closest.slice(0, 3)) {
-                if (c.layerName === 'arboles') {
-                    features.push({
-                        get: (k) => k === 'features' ? c.inner : null,
-                        getGeometry: () => c.geom
-                    });
-                } else {
-                    features.push(c.feature);
-                }
+                }, { hitTolerance: 4 });
             }
         }
 
-        if (features.length === 0) {
-            // No se encontro nada cerca: mostrar coordenadas
-            const panel = document.getElementById('info-panel');
-            const content = document.getElementById('info-content');
-            const coord = evt.coordinate;
-            const lon = (coord[0] / 20037508.34 * 180).toFixed(5);
-            const lat = (180 / Math.PI * (2 * Math.atan(Math.exp(coord[1] / 6378137)) - Math.PI / 2)).toFixed(5);
-            panel.removeAttribute('hidden');
-            panel.style.display = 'block';
-            content.innerHTML = `<div class="alert alert-secondary p-2 mb-0">
-                <small><strong>Click en</strong> ${lon}, ${lat}<br>
-                No hay features cercanos. Haz zoom para ver más detalle.</small>
+        // 3. Si no se tocó municipio, buscar en estados
+        if (!selectedFeature) {
+            const ovEdo = overlays['estados'];
+            if (ovEdo && ovEdo.layer && ovEdo.layer.getVisible()) {
+                map.forEachFeatureAtPixel(evt.pixel, (f, layer) => {
+                    if (layer === ovEdo.layer) {
+                        selectedFeature = f;
+                        selectedLayerName = 'estados';
+                        return true;
+                    }
+                }, { hitTolerance: 4 });
+            }
+        }
+
+        // 4. Si el clic fue en un área vacía (sin polígonos)
+        if (!selectedFeature) {
+            clearHighlight();
+            const sideFicha = document.getElementById('sideFichaContent');
+            if (sideFicha) {
+                sideFicha.innerHTML = `
+                    <div class="p-3 text-center text-muted" style="background:rgba(255,255,255,0.02); border-radius:8px;">
+                        <span style="font-size:2rem;">🗺️</span>
+                        <p class="small mt-2 mb-0">Haz clic sobre cualquier polígono en el mapa para consultar su ficha técnica y prescripción silvícola.</p>
+                    </div>`;
+            }
+            return;
+        }
+
+        // 5. Destacar en color AZUL en el mapa
+        highlightFeature(selectedFeature, selectedLayerName, 'click');
+
+        // 6. EN FICHA TÉCNICA SOLO APARECE LO QUE ESTÁ SELECCIONADO (un único elemento)
+        let htmlCard = '';
+        if (selectedLayerName === 'zonas_prioritarias' || selectedFeature.get('NIVEL_INTEG')) {
+            htmlCard = subzonaCard(selectedFeature);
+        } else if (selectedLayerName === 'municipios' || selectedFeature.get('CVEGEO')) {
+            const p = selectedFeature.getProperties();
+            htmlCard = `
+            <div class="p-3 rounded mb-2" style="background:#14242d; border-left:4px solid #0066ff; border: 1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:0.92rem; font-weight:700; color:#38bdf8;">🏛️ Municipio Seleccionado</div>
+                <div style="font-size:1.05rem; font-weight:700; color:#ffffff; margin: 4px 0;">${escape(p.NOMGEO || '')}</div>
+                <div class="text-white-50 small mb-2"><strong>Entidad:</strong> ${escape(p.NOM_ENT || '')}</div>
+                <div class="text-muted" style="font-size:0.75rem;"><strong>Clave GEO:</strong> ${escape(p.CVEGEO || '')}</div>
             </div>`;
-            return;
+        } else if (selectedLayerName === 'estados' || selectedFeature.get('NOM_ENT')) {
+            const p = selectedFeature.getProperties();
+            htmlCard = `
+            <div class="p-3 rounded mb-2" style="background:#14242d; border-left:4px solid #0066ff; border: 1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:0.92rem; font-weight:700; color:#38bdf8;">🗺️ Estado Seleccionado</div>
+                <div style="font-size:1.1rem; font-weight:700; color:#ffffff; margin: 4px 0;">${escape(p.NOM_ENT || '')}</div>
+                <div class="text-muted" style="font-size:0.75rem;"><strong>Superficie Estatal:</strong> ${p.AREA_HA ? Number(p.AREA_HA).toLocaleString() + ' ha' : '--'}</div>
+            </div>`;
         }
 
-        // 3) Construir lista de hits: subzonas + cada arbol dentro del cluster
-        //    Ya no hacemos zoom en multi-clusters: el usuario hace zoom manual con los controles
-        const hits = [];
-        for (const f of features) {
-            const inner = f.get('features');
-            if (Array.isArray(inner)) {
-                // Es un cluster (real o fake): agregar CADA arbol interno
-                inner.forEach(sf => hits.push({ tipo: 'arbol', feature: sf, source: 'arboles' }));
-            } else {
-                // Es un feature regular (subzona u otro polygon)
-                hits.push({ tipo: 'subzona', feature: f, source: 'zonas_prioritarias' });
-            }
+        const sideFicha = document.getElementById('sideFichaContent');
+        if (sideFicha) {
+            sideFicha.innerHTML = htmlCard;
         }
 
-        if (hits.length === 0) {
-            closeInfo();
-            return;
+        // Activar la pestaña de Ficha Técnica
+        document.getElementById('tab-btn-ficha')?.click();
+        const badgeFicha = document.getElementById('ficha-badge');
+        if (badgeFicha) badgeFicha.classList.remove('d-none');
+
+        // Desplegar el dashboard lateral si estaba colapsado para ver la ficha
+        const dashSidebar = document.getElementById('dashboard-sidebar');
+        if (dashSidebar && dashSidebar.classList.contains('collapsed')) {
+            dashSidebar.classList.remove('collapsed');
+            setTimeout(() => map.updateSize(), 260);
         }
-        renderInfo(hits);
-        // Sincronizar con la tabla del panel inferior si esta abierta
-        syncSelectionWithPanel(hits);
+
+        // Sincronizar con la tabla del panel inferior únicamente si ya está abierta
+        if (bottomPanelState.open) {
+            syncSelectionWithPanel([{ feature: selectedFeature, source: selectedLayerName }]);
+        }
     });
 
     // Encuentra el feature del click en la lista filtrada del bottom panel,

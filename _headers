@@ -1,0 +1,5 @@
+/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/ortofoto_*/*
+  Cache-Control: public, max-age=0, must-revalidate

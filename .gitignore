@@ -12,6 +12,12 @@ Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 
+# Temp & Backups
+.git_chapultepec_bak/
+data/zonas_prioritarias_opt.geojson
+DOCUMENTACION_*.md
+diag.html
+
 # Editor
 .vscode/
 .idea/
